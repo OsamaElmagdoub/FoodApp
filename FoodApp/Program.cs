@@ -22,18 +22,18 @@ internal class Program
 
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-        //Log.Logger = new LoggerConfiguration()
-        //      .ReadFrom.Configuration(configuration)
-        //      .Enrich.WithMachineName()
-        //      .Enrich.WithThreadId()
-        //      .WriteTo.Console()
-        //      .WriteTo.Seq("http://localhost:5341/")
-        //      .WriteTo.MSSqlServer(connectionString: configuration.GetConnectionString("DefaultConnection"),
-        //      sinkOptions: new MSSqlServerSinkOptions
-        //      {
-        //          TableName = "Logs",
-        //          AutoCreateSqlTable = true
-        //      }).CreateLogger();
+        Log.Logger = new LoggerConfiguration()
+              .ReadFrom.Configuration(configuration)
+              .Enrich.WithMachineName()
+              .Enrich.WithThreadId()
+              .WriteTo.Console()
+              .WriteTo.Seq("https://localhost:7143/")
+              .WriteTo.MSSqlServer(connectionString: configuration.GetConnectionString("DefaultConnection"),
+              sinkOptions: new MSSqlServerSinkOptions
+              {
+                  TableName = "Logs",
+                  AutoCreateSqlTable = true
+              }).CreateLogger();
 
 
         builder.Host.UseSerilog();
